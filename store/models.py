@@ -12,7 +12,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8,decimal_places=2)
     description = models.TextField(null = True , blank = True)
     inventory = models.IntegerField()
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(Collection , on_delete=models.CASCADE)
 
     def __str__(self):

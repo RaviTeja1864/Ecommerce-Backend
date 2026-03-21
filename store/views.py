@@ -1,15 +1,28 @@
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Count, Q, F
 from .models import Product, Collection
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializer import ProductSerializer
 
 
-# 1. List all products (using select_related)
+
+#@api_view()
+#def product_list(request):
+#    return Response('ok')
+
+@api_view()
 def product_list(request):
-    products = Product.objects.select_related('collection')
-
-    return render(request, 'products.html', {'products': products})
-
+    query_set = Product.objects.select_related('collection').all()
+    serializer = ProductSerializer(
+        query_set ,many = True , context = {'request':request})
+    return Response(serializer.data)
+    
+@api_view()
+def collection_detail(request , pk):
+    return Response('ok')
 
 # 2. Show products for each collection (prefetch_related)
 def collections_products(request):

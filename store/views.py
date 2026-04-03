@@ -1,27 +1,30 @@
 from django.db.models import Count
+from .filters import ProductFilter
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from django.shortcuts import get_object_or_404
-
-from .models import Product, Collection
-from .serializer import ProductSerializer, CollectionSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter,OrderingFilter
+from .models import Product, Collection , Review
+from .serializer import ProductSerializer, CollectionSerializer,ReviewSerializer
 from orders.models import OrderItem
 
 
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend,SearchFilter,OrderingFilter]
+    filterset_class = ProductFilter
+    ordering_fields = ['price', 'last_update']
+    search_fields = ['title', 'description']
 
-    def destroy(self, request, *args, **kwargs):
-        if OrderItem.objects.filter(product_id=kwargs['pk']).exists():
-            return Response(
-                {'error': 'Product cannot be deleted because it is associated with an order item.'},
-                status=status.HTTP_405_METHOD_NOT_ALLOWED
-            )
-        return super().destroy(request, *args, **kwargs)
+class ReviewViewSet(ModelViewSet):
+    serializer_class = ReviewSerializer
 
+    def get_queryset(self):
+        return Review.objects.filter(product_id=self.kwargs['product_pk'])
 
 @api_view(['GET', 'POST'])
 def collection_list(request):

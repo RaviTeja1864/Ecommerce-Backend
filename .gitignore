@@ -1,0 +1,19 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+
+# Django stuff
+db.sqlite3
+
+# OS files
+.DS_Store
+
+# Document and Image files
+*.pdf
+*.docx
+*.jpeg
+*.jpg
+*.png

@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator
 
 class Collection(models.Model):
     title = models.CharField(max_length=255)
@@ -12,7 +12,7 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     description = models.TextField(null=True, blank=True)
-    inventory = models.PositiveIntegerField()
+    inventory = models.PositiveIntegerField(MinValueValidator(1))
     last_update = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
 

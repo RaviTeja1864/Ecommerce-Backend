@@ -10,7 +10,7 @@ from rest_framework.filters import SearchFilter,OrderingFilter
 from .models import Product, Collection , Review
 from .serializer import ProductSerializer, CollectionSerializer,ReviewSerializer
 from orders.models import OrderItem
-
+from .pagination import DefaultPagination
 
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
@@ -19,6 +19,7 @@ class ProductViewSet(ModelViewSet):
     filterset_class = ProductFilter
     ordering_fields = ['price', 'last_update']
     search_fields = ['title', 'description']
+    pagination_class = DefaultPagination
 
 class ReviewViewSet(ModelViewSet):
     serializer_class = ReviewSerializer

@@ -4,8 +4,6 @@ from . import views
 
 router = DefaultRouter()
 router.register('products', views.ProductViewSet)
+router.register('collections', views.CollectionViewSet)
 
-urlpatterns = router.urls + [
-    path('collections/', views.collection_list, name='collection-list'),
-    path('collections/<int:pk>/', views.collection_detail, name='collection-detail'),
-]
+urlpatterns = router.urls

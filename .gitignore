@@ -17,3 +17,6 @@ db.sqlite3
 *.jpeg
 *.jpg
 *.png
+
+# Project settings with credentials
+ecommerce/settings.py

@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.db import models
+
 
 class Customer(models.Model):
     MEMBERSHIP_GOLD = 'G'
@@ -6,15 +8,15 @@ class Customer(models.Model):
     MEMBERSHIP_SILVER = 'S'
 
     MEMBERSHIP_CHOICES = [
-        (MEMBERSHIP_SILVER , 'silver'),        
-        (MEMBERSHIP_BRONZE , 'Bronze'),
-        (MEMBERSHIP_GOLD , 'Gold'),
-
+        (MEMBERSHIP_SILVER, 'Silver'),
+        (MEMBERSHIP_BRONZE, 'Bronze'),
+        (MEMBERSHIP_GOLD, 'Gold'),
     ]
 
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
     membership = models.CharField(
         max_length=1,
         choices=MEMBERSHIP_CHOICES,
@@ -22,4 +24,4 @@ class Customer(models.Model):
     )
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.user.first_name} {self.user.last_name}"

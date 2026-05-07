@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'customers',
     'orders',
     'tags',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,8 @@ DATABASES = {
     }
 }
 
+#AUTH MODEL
+AUTH_USER_MODEL = 'core.User'
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

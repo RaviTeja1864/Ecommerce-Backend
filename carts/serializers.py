@@ -60,4 +60,4 @@ class AddCartItemSerializer(serializers.ModelSerializer):
 class UpdateCartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
-        fields = ['quantity']
+        fields = ['quantity'

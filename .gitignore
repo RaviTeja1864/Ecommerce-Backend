@@ -20,3 +20,8 @@ db.sqlite3
 
 # Project settings with credentials
 ecommerce/settings.py
+
+# Local Roadmap
+backend_developer_roadmap.txt
+backend_developer_roadmap.md
+recheck.txt

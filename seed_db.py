@@ -43,18 +43,27 @@ def seed_db():
         product_objs.append(prod)
     print(f"Created {len(product_objs)} Products")
 
-    # 3. Create 100 Customers
+    # 3. Create 100 Users and Customers
+    from core.models import User
     customer_objs = []
     memberships = ['B', 'S', 'G']
-    for _ in range(100):
-        cust = Customer.objects.create(
-            first_name=fake.first_name(),
-            last_name=fake.last_name(),
+    for i in range(100):
+        # Create User
+        username = f"user_{i}_{random.randint(1000, 9999)}"
+        user = User.objects.create_user(
+            username=username,
+            password='password123',
             email=fake.unique.email(),
+            first_name=fake.first_name(),
+            last_name=fake.last_name()
+        )
+        # Create Customer linked to User
+        cust = Customer.objects.create(
+            user=user,
             membership=random.choice(memberships)
         )
         customer_objs.append(cust)
-    print(f"Created {len(customer_objs)} Customers")
+    print(f"Created {len(customer_objs)} Users and Customers")
 
     # 4. Create 50 Orders with Items
     for _ in range(50):

@@ -6,6 +6,16 @@ from .models import Customer
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name', 'email', 'membership', 'orders_count']
+    list_select_related = ['user']
+
+    def first_name(self, customer):
+        return customer.user.first_name
+
+    def last_name(self, customer):
+        return customer.user.last_name
+
+    def email(self, customer):
+        return customer.user.email
 
     def get_queryset(self, request):
         return super().get_queryset(request).annotate(orders_count=Count('order'))

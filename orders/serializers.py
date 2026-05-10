@@ -4,7 +4,7 @@ from .models import Order, OrderItem
 from carts.models import Cart, CartItem
 from customers.models import Customer
 
-class OrderItemSerializer(serializers.ModelSerializer):
+class OrderItemSerializer(serializers.ModelSerializer)
     class Meta:
         model = OrderItem
         fields = ['id', 'product', 'quantity', 'unit_price']

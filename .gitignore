@@ -25,3 +25,5 @@ ecommerce/settings.py
 backend_developer_roadmap.txt
 backend_developer_roadmap.md
 recheck.txt
+
+seed_db.py
